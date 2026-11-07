@@ -2,10 +2,14 @@
 // Servidor ZANKA: sirve la página y guarda los datos compartidos. Sin dependencias (solo Node.js).
 const http=require('http'),fs=require('fs'),path=require('path'),os=require('os'),crypto=require('crypto');
 const PORT=+process.env.PORT||3000;
-const DATA_DIR=process.env.DATA_DIR||path.join(__dirname,'datos');
+const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, 'datos');
 const FILE=path.join(DATA_DIR,'zanka-datos.json'),HTML=path.join(__dirname,'emisor-de-boletas.html');
 const KEYS=['boletas','clientes','telefonos','gastos','kardex','abiertos','catalogo','secciones','usuarios','authrec','nmesas','negocio','asistencia','asisconf'];
-fs.mkdirSync(DATA_DIR,{recursive:true});
+try {
+if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+} catch (err) {
+  console.log('Carpeta ya existe o no se necesita crear:', err.message);
+}
 
 // Clave de acceso de los equipos (se muestra al iniciar; se guarda en datos/clave.txt)
 const CF=path.join(DATA_DIR,'clave.txt');
