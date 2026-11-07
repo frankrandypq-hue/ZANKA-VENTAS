@@ -13,7 +13,7 @@ if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 
 // Clave de acceso de los equipos (se muestra al iniciar; se guarda en datos/clave.txt)
 const CF=path.join(DATA_DIR,'clave.txt');
-let CLAVE=(process.env.ZANKA_CLAVE||'').trim();
+let CLAVE = (process.env.ZANKA_CLAVE || '').trim();
 if(!CLAVE){try{CLAVE=fs.readFileSync(CF,'utf8').trim()}catch(e){}}
 if(!CLAVE){const a='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';CLAVE=Array.from(crypto.randomBytes(8),b=>a[b%a.length]).join('');fs.writeFileSync(CF,CLAVE)}
 const dig=s=>crypto.createHash('sha256').update(String(s)).digest();
