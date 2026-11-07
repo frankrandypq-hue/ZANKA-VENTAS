@@ -1,11 +1,8 @@
 {
   "name": "zanka-servidor",
   "version": "1.0.0",
-  "main": "servidor.js",
-  "scripts": {
-    "start": "node servidor.js"
-  },
-  "engines": {
-    "node": ">=18"
-  }
+  "description": "Servidor de ventas ZANKA (datos compartidos entre equipos)",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
 }
