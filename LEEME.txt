@@ -1,0 +1,61 @@
+SERVIDOR ZANKA - VENTAS COMPARTIDAS ENTRE EQUIPOS
+=================================================
+
+Con esto, todos los equipos (caja, celulares de los mozos, tablet) usan los
+MISMOS datos: ventas, mesas, inventario, caja, clientes y usuarios.
+
+OPCION A: EN TU NEGOCIO (gratis, misma red WiFi)
+------------------------------------------------
+1. En la computadora de la caja instala Node.js (version LTS): https://nodejs.org
+2. Deja esta carpeta completa en esa computadora (no separes los archivos).
+3. Haz doble clic en  iniciar.bat
+4. Se abre una ventana negra que muestra:
+     - La CLAVE DE ACCESO (8 letras/numeros)
+     - Las direcciones, por ejemplo  http://192.168.1.20:3000
+5. En CADA equipo (misma WiFi) abre esa direccion en el navegador.
+   La primera vez pide la clave de acceso; despues ya no.
+6. La primera vez, en el primer equipo se crea la cuenta del administrador.
+   Luego el administrador crea las cuentas del personal en "Usuarios y accesos".
+
+IMPORTANTE
+- No cierres la ventana negra mientras el negocio este abierto.
+- La computadora de la caja debe estar encendida para que los demas se conecten.
+- Si la computadora se reinicia, vuelve a abrir iniciar.bat.
+- Cada equipo recibe su propia serie de comprobantes (B001, B002, B003...),
+  asi nunca se repiten numeros entre equipos.
+- Si se corta el internet/WiFi, el equipo sigue vendiendo y envia todo al volver.
+
+DONDE SE GUARDAN LOS DATOS
+- Carpeta "datos": zanka-datos.json (todo) y la carpeta "copias" (una copia por dia,
+  se guardan las ultimas 30). Copia la carpeta "datos" a un USB de vez en cuando.
+
+OPCION B: EN INTERNET (acceso desde cualquier lugar)
+----------------------------------------------------
+Sube esta carpeta a un servicio que ejecute Node.js (por ejemplo Render, Railway o
+un VPS). Configura:
+  - Comando de inicio:        node server.js
+  - Variable  ZANKA_CLAVE     (una clave larga que tu elijas)
+  - Variable  DATA_DIR        (ruta de un disco persistente, para no perder datos)
+El servicio entrega una direccion https://... que se abre desde cualquier equipo.
+Con https tambien funciona "compartir" el ticket por WhatsApp desde el celular.
+
+ASISTENCIA DEL PERSONAL CON QR
+------------------------------
+- Cada persona tiene su carnet con codigo QR (menu "Asistencia del personal" > Carnets).
+- En la caja, abre "Marcar asistencia": el empleado acerca su QR a la camara (o usa un
+  lector de QR USB, o escribe el codigo) y queda registrada su entrada o salida.
+- Con el servidor, las marcas hechas en un equipo aparecen en todos los demas.
+- PIN opcional: en "Asistencia del personal" activa "Pedir PIN de 4 digitos al marcar".
+  Asigna a cada persona un PIN (o pulsa "Generar"). Asi el QR solo ya no basta.
+- Reporte mensual de horas: elige el mes, escribe la tarifa por hora y obtienes el pago
+  estimado de cada persona (descarga CSV o PDF).
+- Para personal que no usa el sistema (cocina), crea un usuario con rol "Solo asistencia".
+- La camara del navegador solo funciona en https o en la misma computadora (localhost).
+  En la red local (http) usa un lector de QR USB o escribe el codigo.
+
+NOTAS DE SEGURIDAD
+- Todos los equipos comparten la clave de acceso; no la publiques.
+- Los roles (cajero, mozo) limitan lo que se ve en pantalla, pero no son seguridad
+  de nivel bancario. Para mas seguridad se necesita autenticacion en el servidor.
+- En la red local (http) el celular no permite copiar/compartir imagenes: para el
+  ticket por WhatsApp descarga la imagen y adjuntala, o usa la Opcion B (https).
